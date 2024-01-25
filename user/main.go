@@ -2,11 +2,11 @@ package main
 
 import (
 	"common/config"
+	"common/logs"
 	"common/metrics"
 	"context"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"user/app"
 )
@@ -27,7 +27,7 @@ func main() {
 	// 3.启动 grpc 服务端
 	err := app.Run(context.Background())
 	if err != nil {
-		log.Println(err)
+		logs.Info("grpc start failed,err: ", err)
 		os.Exit(-1)
 	}
 }
