@@ -12,6 +12,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"user/internal/service"
+	"user/pb"
 )
 
 // Run 启动程序
@@ -39,6 +41,8 @@ func Run(ctx context.Context) error {
 		if err = register.Register(config.Conf.Etcd); err != nil {
 			logs.Fatal("user grpc server register etcd err: %v", err)
 		}
+
+		pb.RegisterUserServiceServer(server, service.NewAccountService(manager))
 
 		if err = server.Serve(listen); err != nil {
 			logs.Fatal("user grpc server run failed err: %v", err)
