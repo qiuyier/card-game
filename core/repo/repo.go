@@ -13,3 +13,13 @@ func New() *Manager {
 		Redis: database.NewRedis(),
 	}
 }
+
+func (m *Manager) Close() {
+	if m.Mongo != nil {
+		m.Mongo.Close()
+	}
+
+	if m.Redis != nil {
+		m.Redis.Close()
+	}
+}

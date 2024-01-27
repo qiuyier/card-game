@@ -5,6 +5,7 @@ import (
 	"common/discovery"
 	"common/logs"
 	"context"
+	"core/repo"
 	"google.golang.org/grpc"
 	"net"
 	"os"
@@ -24,6 +25,9 @@ func Run(ctx context.Context) error {
 	// 启动 grpc 服务端
 	server := grpc.NewServer()
 
+	// 初始化数据库
+	manager := repo.New()
+
 	go func() {
 		listen, err := net.Listen("tcp", config.Conf.Grpc.Addr)
 		if err != nil {
@@ -36,9 +40,6 @@ func Run(ctx context.Context) error {
 			logs.Fatal("user grpc server register etcd err: %v", err)
 		}
 
-		// 初始化数据库
-		//manager := repo.New()
-
 		if err = server.Serve(listen); err != nil {
 			logs.Fatal("user grpc server run failed err: %v", err)
 		}
@@ -47,6 +48,7 @@ func Run(ctx context.Context) error {
 	stop := func() {
 		server.Stop()
 		register.CloseEtcd()
+		manager.Close()
 		time.Sleep(3 * time.Second)
 		logs.Info("stop app finish")
 	}
