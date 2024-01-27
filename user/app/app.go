@@ -36,6 +36,9 @@ func Run(ctx context.Context) error {
 			logs.Fatal("user grpc server register etcd err: %v", err)
 		}
 
+		// 初始化数据库
+		//manager := repo.New()
+
 		if err = server.Serve(listen); err != nil {
 			logs.Fatal("user grpc server run failed err: %v", err)
 		}
