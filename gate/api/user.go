@@ -1,6 +1,7 @@
 package api
 
 import (
+	"common/logs"
 	"common/rpc"
 	"github.com/gin-gonic/gin"
 	"user/pb"
@@ -14,9 +15,11 @@ func NewUserHandler() *UserHandler {
 }
 
 func (u *UserHandler) Register(ctx *gin.Context) {
-	_, err := rpc.UserClient.Register(ctx, &pb.RegisterParams{})
+	response, err := rpc.UserClient.Register(ctx, &pb.RegisterParams{})
 	if err != nil {
 
 	}
+	uid := response.Uid
+	logs.Info("uid:%s", uid)
 
 }
