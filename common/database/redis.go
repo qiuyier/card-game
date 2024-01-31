@@ -40,14 +40,14 @@ func NewRedis() *RedisManager {
 	}
 
 	if clusterClient != nil {
-		if err := clusterClient.Ping(ctx); err != nil {
+		if err := clusterClient.Ping(ctx).Err(); err != nil {
 			logs.Fatal("redis cluster connect err: %v", err)
 			return nil
 		}
 	}
 
 	if client != nil {
-		if err := client.Ping(ctx); err != nil {
+		if err := client.Ping(ctx).Err(); err != nil {
 			logs.Fatal("redis client connect err: %v", err)
 			return nil
 		}
