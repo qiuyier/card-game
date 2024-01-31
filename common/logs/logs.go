@@ -28,7 +28,7 @@ func Fatal(format string, values ...any) {
 	if len(values) == 0 {
 		logger.Fatal(format)
 	} else {
-		logger.Fatalf(format, values)
+		logger.Fatalf(format, values...)
 	}
 }
 
@@ -36,7 +36,7 @@ func Info(format string, values ...any) {
 	if len(values) == 0 {
 		logger.Info(format)
 	} else {
-		logger.Infof(format, values)
+		logger.Infof(format, values...)
 	}
 }
 
@@ -44,7 +44,7 @@ func Debug(format string, values ...any) {
 	if len(values) == 0 {
 		logger.Debug(format)
 	} else {
-		logger.Debugf(format, values)
+		logger.Debugf(format, values...)
 	}
 }
 
@@ -52,7 +52,7 @@ func Warn(format string, values ...any) {
 	if len(values) == 0 {
 		logger.Warn(format)
 	} else {
-		logger.Warnf(format, values)
+		logger.Warnf(format, values...)
 	}
 }
 
@@ -60,6 +60,6 @@ func Error(format string, values ...any) {
 	if len(values) == 0 {
 		logger.Error(format)
 	} else {
-		logger.Errorf(format, values)
+		logger.Errorf(format, values...)
 	}
 }
